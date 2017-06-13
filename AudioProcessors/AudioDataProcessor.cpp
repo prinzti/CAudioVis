@@ -6,6 +6,7 @@
  */
 
 #include "AudioDataProcessor.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,6 +21,7 @@ AudioDataProcessor::AudioDataProcessor(int inputBufferSize, int numBeatDetection
 	this->windowFunction = getWindowFunction();
 	initFft();
 	initOnset();
+	this->bpmAnalyzer = new BpmAnalyzer;
 }
 
 AudioDataProcessor::~AudioDataProcessor() {
@@ -32,6 +34,9 @@ AudioDataProcessor::~AudioDataProcessor() {
 	if (odsDataBuffer) {
 		delete[] odsDataBuffer;
 	}
+	if (bpmAnalyzer) {
+		delete bpmAnalyzer;
+	}
 }
 
 void AudioDataProcessor::processAudioData(AudioProcessingFrameData* audioData) {
@@ -43,6 +48,9 @@ void AudioDataProcessor::processAudioData(AudioProcessingFrameData* audioData) {
 	audioData->frequencyWidth = 2*maxSpectrumFrequency / ((float)inputBufferSize);
 	audioData->isBeat = onset;
 	audioData->spectrum = spectrumBuffer;
+	if (bpmAnalyzer) {
+		bpmAnalyzer->postProcessAudioData(audioData);
+	}
 }
 
 void AudioDataProcessor::inputBufferToWindowedFloatArray(float* target, short* src) {

@@ -8,10 +8,10 @@
 #ifndef VISUALIZERS_FOURCHANNELSPECVISUALIZER_FCSVISOUTPUTTERHUB_H_
 #define VISUALIZERS_FOURCHANNELSPECVISUALIZER_FCSVISOUTPUTTERHUB_H_
 
-#include "../../../Data/AudioData.h"
 #include "../../../Data/VisOutputData.h"
 #include "AbstractFCSVisOutputter.h"
 #include <list>
+#include "../../../Data/AudioProcessingFrameData.h"
 
 class FCSVisOutputterHub {
 public:

@@ -9,7 +9,7 @@
 #define VISUALIZERS_FOURCHANNELSPECVISUALIZER_ABSTRACTFCSVISOUTPUTTER_H_
 
 #include "../../../Data/VisOutputData.h"
-#include "../../../Data/AudioData.h"
+#include "../../../Data/AudioProcessingFrameData.h"
 
 class AbstractFCSVisOutputter {
 public:

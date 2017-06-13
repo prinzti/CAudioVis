@@ -7,7 +7,7 @@
 
 #ifndef AUDIODATAPROCESSOR_H_
 #define AUDIODATAPROCESSOR_H_
-#include "../Data/AudioData.h"
+#include "../Data/AudioProcessingFrameData.h"
 #include "../onsetsds.h"
 #include "../fftw3.h"
 
@@ -29,6 +29,7 @@ private:
 	fftwf_complex* spectrumBuffer;
 	fftwf_plan fftw_plan;
 	OnsetsDS ods;
+	BpmAnalyzer* bpmAnalyzer;
 
 	float* getWindowFunction();
 	void inputBufferToWindowedFloatArray(float* target, short* src);

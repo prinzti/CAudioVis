@@ -7,9 +7,10 @@
 
 #ifndef AUDIOINPUTTER_H_
 #define AUDIOINPUTTER_H_
+
 #define __c_plus_plus
 #include <alsa/asoundlib.h>
-#include "Data/AudioData.h"
+#include "Data/AudioProcessingFrameData.h"
 
 
 class AudioInputter {

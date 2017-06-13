@@ -8,8 +8,8 @@
 #ifndef ABSTRACTVISUALIZER_H_
 #define ABSTRACTVISUALIZER_H_
 
+#include "../../Data/AudioProcessingFrameData.h"
 #include "../AbstractVisOutputProcessor.h"
-#include "../../Data/AudioData.h"
 
 class AbstractVisualizer {
 public:
