@@ -48,7 +48,7 @@ FourChannelSpecVisualizer::~FourChannelSpecVisualizer() {
 
 void FourChannelSpecVisualizer::processInputData(
 		AudioProcessingFrameData inputData) {
-	if (inputData.isBeat) {
+	if (inputData.isBeatRaw) {
 		beatCounter++;
 	}
 	float* bars = new float[numChannels];

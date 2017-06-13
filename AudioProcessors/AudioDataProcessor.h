@@ -10,6 +10,7 @@
 #include "../Data/AudioProcessingFrameData.h"
 #include "../onsetsds.h"
 #include "../fftw3.h"
+#include "BpmAnalyzer.h"
 
 class AudioDataProcessor {
 public:

@@ -37,6 +37,18 @@ public:
 		delete[] string;
 	}
 
+	static void printArrayOfLongInts(int lengthOfarray, long int* data) {
+		char* string = new char[lengthOfarray*20];
+		int lengthOfString = 0;
+		memset(string, 0, 10 * lengthOfarray + 2);
+		for (int i = 0; i < lengthOfarray; i++) {
+			lengthOfString += sprintf(&(string[lengthOfString]), "%li ", data[i]);
+		}
+		lengthOfString += sprintf(&(string[lengthOfString]), "\n");
+		printf(string);
+		delete[] string;
+	}
+
 	static void printArrayOfShorts(int lengthOfarray,short * data) {
 		char* string = new char[lengthOfarray*10];
 		int lengthOfString = 0;

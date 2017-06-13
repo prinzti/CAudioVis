@@ -75,7 +75,7 @@ void SingleColorFCSVisOutputter::processFCS(AudioProcessingFrameData audioData, 
 	barsToVisOutputForChannel(bars[2], &(targetVisOutputData->centerRight), (colorConfig.colorConfigCenterRight));
 	barsToVisOutputForChannel(bars[3], &(targetVisOutputData->right), (colorConfig.colorConfigRight));
 
-	setValueForOutputChannel(audioData.isBeat, &(targetVisOutputData->bottom), colorConfig.colorConfigBottom);
+	setValueForOutputChannel(audioData.isBeatRaw, &(targetVisOutputData->bottom), colorConfig.colorConfigBottom);
 }
 
 

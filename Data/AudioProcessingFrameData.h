@@ -15,7 +15,8 @@ struct AudioProcessingFrameData{
 	float frequencyWidth;
 	short* rawData;
 	fftwf_complex* spectrum;
-	bool isBeat;
+	bool isBeatRaw;
+	bool isBeatBpmAnalyzer;
 };
 
 

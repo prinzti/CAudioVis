@@ -46,7 +46,7 @@ void AudioDataProcessor::processAudioData(AudioProcessingFrameData* audioData) {
 
 	float maxSpectrumFrequency = ((float)audioData->bitRate)/2.0f;
 	audioData->frequencyWidth = 2*maxSpectrumFrequency / ((float)inputBufferSize);
-	audioData->isBeat = onset;
+	audioData->isBeatRaw = onset;
 	audioData->spectrum = spectrumBuffer;
 	if (bpmAnalyzer) {
 		bpmAnalyzer->postProcessAudioData(audioData);

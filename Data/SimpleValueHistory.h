@@ -9,6 +9,7 @@
 #define SIMPLEVALUEHISTORY_H_
 
 #include <cstring>
+#include <algorithm>
 
 template <typename T> class SimpleValueHistory {
 public:
@@ -52,6 +53,39 @@ public:
 		}
 		return average;
 	}
+
+	void getLastNNonDefaultEntries(int N, T** targetBuffer, int* numValuesReturned) {
+		if (N > this->numEntries) {
+			N = this->numEntries;
+		}
+		T* lastNEntries = new T[N];
+		*numValuesReturned = 0;
+		int numValuesChecked = 0;
+		int currentIdxToCheck = this->currentIdx;
+		while ((*numValuesReturned) < N && numValuesChecked < this->numEntries) {
+			if (this->values[currentIdxToCheck] != this->defaultValue) {
+				lastNEntries[*numValuesReturned] = this->values[currentIdxToCheck];
+				(*numValuesReturned)++;
+			}
+			currentIdxToCheck--;
+			numValuesChecked++;
+			if (currentIdxToCheck < 0) {
+				currentIdxToCheck += this->numEntries;
+			}
+		}
+		(*targetBuffer) = new T[*numValuesReturned];
+		memcpy(*targetBuffer, lastNEntries, (*numValuesReturned)*sizeof(T));
+		delete[] lastNEntries;
+	}
+
+	int getCapacity() {
+		return this->numEntries;
+	}
+
+	T getDefaultValue() {
+		return defaultValue;
+	}
+
 private:
 	T* values;
 	T defaultValue;

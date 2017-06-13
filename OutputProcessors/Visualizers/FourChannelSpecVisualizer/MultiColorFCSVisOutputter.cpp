@@ -19,7 +19,7 @@ void MultiColorFCSVisOutputter::processFCS(AudioProcessingFrameData audioData, f
 	barsToVisOutputForChannel(bars[2], &targetVisOutputData->centerRight);
 	barsToVisOutputForChannel(bars[3], &targetVisOutputData->right);
 
-	targetVisOutputData->bottom.red = audioData.isBeat;
+	targetVisOutputData->bottom.red = audioData.isBeatRaw;
 }
 
 void MultiColorFCSVisOutputter::printVisOutputterInfo() {
