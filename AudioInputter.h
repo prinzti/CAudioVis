@@ -9,7 +9,7 @@
 #define AUDIOINPUTTER_H_
 #define __c_plus_plus
 #include <alsa/asoundlib.h>
-#include "AudioData.h"
+#include "Data/AudioData.h"
 
 
 class AudioInputter {

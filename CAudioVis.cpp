@@ -5,10 +5,10 @@
 #include <fstream>
 #include <sstream>
 #include "AudioInputter.h"
-#include "AudioDataProcessor.h"
-#include "ConsoleVisOutputProcessor.h"
-#include "GpioVisOutputProcessor.h"
-#include "Visualizers/FourChannelSpecVisualizer/FourChannelSpecVisualizer.h"
+#include "AudioProcessors/AudioDataProcessor.h"
+#include "OutputProcessors/ConsoleVisOutputProcessor.h"
+#include "OutputProcessors/GpioVisOutputProcessor.h"
+#include "OutputProcessors/Visualizers/FourChannelSpecVisualizer/FourChannelSpecVisualizer.h"
 
 using namespace std;
 
