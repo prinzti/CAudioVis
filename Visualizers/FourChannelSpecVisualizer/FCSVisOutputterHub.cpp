@@ -23,19 +23,15 @@ FCSVisOutputterHub::~FCSVisOutputterHub() {
 }
 
 void FCSVisOutputterHub::processAudioData(AudioProcessingFrameData audioData, float* fcsBars, VisOutputData* targetVisOutputData) {
-	//printf("FCSVisOutputterHub::processAudioData\n");
 	if ((*currentVisOutputter)!=NULL) {
-		//printf("FCSVisOutputterHub::processAudioData: Call to Outputter\n");
 		(*currentVisOutputter)->processFCS(audioData, fcsBars, targetVisOutputData);
 	}
 }
 
 void FCSVisOutputterHub::animate() {
 	int numVisOutputtersInList = registeredVisOutputters.size();
-	//printf("FCSVisOutputterHub::animate numVisOutputtersInList=%i\n", numVisOutputtersInList);
 	int randomNumberOfIterationSteps = rand() % numVisOutputtersInList;
 	printf("FCSVisOutputterHub switching VisOutputter to #%i\n", randomNumberOfIterationSteps);
-	//printf("FCSVisOutputterHub::animate iterating %i times\n", randomNumberOfIterationSteps);
 	currentVisOutputter = registeredVisOutputters.begin();
 	for (int i = 0; i < randomNumberOfIterationSteps; i++) {
 		++currentVisOutputter;
@@ -43,11 +39,9 @@ void FCSVisOutputterHub::animate() {
 	if ((*currentVisOutputter)!=NULL) {
 		(*currentVisOutputter)->printVisOutputterInfo();
 	}
-	//printf("FCSVisOutputterHub::animate done\n");
 }
 
 void FCSVisOutputterHub::registerVisOutputter( AbstractFCSVisOutputter* visOutputter ) {
-	//printf("FCSVisOutputterHub::registerVisOutputter\n");
 	registeredVisOutputters.push_back(visOutputter);
 }
 

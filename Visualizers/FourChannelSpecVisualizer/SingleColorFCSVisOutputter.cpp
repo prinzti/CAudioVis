@@ -70,8 +70,6 @@ void barsToVisOutputForChannel(float bar, UnitData* targetUnitData, UnitColorCon
 }
 
 void SingleColorFCSVisOutputter::processFCS(AudioProcessingFrameData audioData, float* bars, VisOutputData* targetVisOutputData) {
-	//printf("SingleColorFCSVisOutputter::processAudioData\n");
-
 	barsToVisOutputForChannel(bars[0], &(targetVisOutputData->left), (colorConfig.colorConfigLeft));
 	barsToVisOutputForChannel(bars[1], &(targetVisOutputData->centerLeft), (colorConfig.colorConfigCenterLeft));
 	barsToVisOutputForChannel(bars[2], &(targetVisOutputData->centerRight), (colorConfig.colorConfigCenterRight));

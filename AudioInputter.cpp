@@ -22,7 +22,6 @@ AudioInputter::~AudioInputter() {
 int AudioInputter::readStream(AudioProcessingFrameData* targetAudioData, int numFrames) {
 	targetAudioData->bitRate = samplingRate;
 	int framesRead = snd_pcm_readi(this->captureHandle, targetAudioData->rawData, numFrames);
-	//printf("read %d samples\n", framesRead);
 	targetAudioData->bufferSize = framesRead;
 	return framesRead;
 }

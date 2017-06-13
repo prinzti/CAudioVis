@@ -19,7 +19,6 @@ FourChannelSpecVisualizer::FourChannelSpecVisualizer(int inputSpectrumSize, int 
 		AbstractVisOutputProcessor* visOutputProcessor) :
 		AbstractVisualizer(inputSpectrumSize, samplingRate, visOutputProcessor) {
 	createPowerSpectrumBarIndexByBinIndex();
-	//linearCorrectionFactor = 1 / ((double) numPointsToAverageOver);
 	powerSpectrum = new float[inputSpectrumSize];
 	minSpectrumAmplitudeHistory = new SimpleValueHistory<float>(minSpectrumAmplitudeHistoryLength, 0.0f);
 	maxSpectrumAmplitudeHistory = new SimpleValueHistory<float>(maxSpectrumAmplitudeHistoryLength, 0.0f);
@@ -47,33 +46,8 @@ FourChannelSpecVisualizer::~FourChannelSpecVisualizer() {
 	}
 }
 
-static void printArrayOfFloats(int lengthOfarray, float* data) {
-	char* string = new char[lengthOfarray*10];
-	int lengthOfString = 0;
-	memset(string, 0, 6 * lengthOfarray + 2);
-	for (int i = 0; i < lengthOfarray; i++) {
-		lengthOfString += sprintf(&(string[lengthOfString]), "%4.2f ", data[i]);
-	}
-	lengthOfString += sprintf(&(string[lengthOfString]), "\n");
-	printf(string);
-	delete[] string;
-}
-
-static void printArrayOfInts(int lengthOfarray, int* data) {
-	char* string = new char[lengthOfarray*10];
-	int lengthOfString = 0;
-	memset(string, 0, 6 * lengthOfarray + 2);
-	for (int i = 0; i < lengthOfarray; i++) {
-		lengthOfString += sprintf(&(string[lengthOfString]), "%i ", data[i]);
-	}
-	lengthOfString += sprintf(&(string[lengthOfString]), "\n");
-	printf(string);
-	delete[] string;
-}
-
 void FourChannelSpecVisualizer::processInputData(
 		AudioProcessingFrameData inputData) {
-	//printf("FourChannelSpecVisualizer::processInputData\n");
 	if (inputData.isBeat) {
 		beatCounter++;
 	}
@@ -82,14 +56,11 @@ void FourChannelSpecVisualizer::processInputData(
 	powerSpectrumToBars(&bars);
 	VisOutputData visOutputData;
 	memset(&visOutputData, false, sizeof(VisOutputData));
-	//printf("FourChannelSpecVisualizer::processInputData -> call to VisOutputterHub.processAudioData\n");
 	visOutputterHub.processAudioData(inputData, bars, &visOutputData);
-	//printf("FourChannelSpecVisualizer::processInputData -> call to visOutputProcessor.processVisOutput\n");
 	visOutputProcessor->processVisOutput(visOutputData);
 	if (time(NULL) - timeOfLastAnimation > maxTimeBetweenAnimations || beatCounter % beatsBetweenAnimations == 0) {
 		beatCounter++;
 		timeOfLastAnimation = time(NULL);
-		//printf("FourChannelSpecVisualizer::processInputData -> call to VisOutputterHub.animate\n");
 		visOutputterHub.animate();
 	}
 }
@@ -111,7 +82,7 @@ void FourChannelSpecVisualizer::calculatePowerSpectrumFromDftData(
 		sumOfSpectrumElements += powerSpectrum[i] / (float) inputSpectrumSize;
 	}
 	for (int i = 1; i < inputSpectrumSize/2; i++) {
-		powerSpectrum[i] = log(powerSpectrum[i]/*/sumOfSpectrumElements*/);
+		powerSpectrum[i] = log(powerSpectrum[i]);
 		if (powerSpectrum[i] < smallestValue) {
 			smallestValue = powerSpectrum[i];
 		}
