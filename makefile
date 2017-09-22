@@ -1,5 +1,5 @@
-cAudioVis: CAudioVis.o onsetsds.o AudioInputter.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o
-	gcc -o cAudioVis CAudioVis.o onsetsds.o AudioInputter.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o -lasound -lfftw3f -lwiringPi
+cAudioVis: CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o
+	g++ -o cAudioVis CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o -lasound -lfftw3f -lwiringPi
 
 CAudioVis.o: CAudioVis.cpp
 	gcc -c CAudioVis.cpp
