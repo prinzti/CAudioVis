@@ -1,5 +1,5 @@
 cAudioVis: CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o OnsetDetectionFunction.o BTrack.o
-	g++ -o cAudioVis CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o OnsetDetectionFunction.o BTrack.o -lasound -lfftw3f -lwiringPi
+	g++ -o cAudioVis CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o OnsetDetectionFunction.o BTrack.o -lasound -lfftw3f -lwiringPi -lsamplerate
 
 CAudioVis.o: CAudioVis.cpp
 	gcc -c CAudioVis.cpp
