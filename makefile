@@ -1,5 +1,5 @@
-cAudioVis: CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o
-	g++ -o cAudioVis CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o -lasound -lfftw3f -lwiringPi
+cAudioVis: CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o OnsetDetectionFunction.o BTrack.o
+	g++ -o cAudioVis CAudioVis.o onsetsds.o AudioInputter.o AudioDataProcessor.o BpmAnalyzer.o AbstractVisOutputProcessor.o ConsoleVisOutputProcessor.o GpioVisOutputProcessor.o AbstractVisualizer.o AbstractFCSVisOutputter.o FCSVisOutputterHub.o FCSVisOutputterInitializer.o FourChannelSpecVisualizer.o MultiColorFCSVisOutputter.o SingleColorFCSVisOutputter.o OnsetDetectionFunction.o BTrack.o -lasound -lfftw3f -lwiringPi
 
 CAudioVis.o: CAudioVis.cpp
 	gcc -c CAudioVis.cpp
@@ -31,3 +31,9 @@ MultiColorFCSVisOutputter.o: OutputProcessors/Visualizers/FourChannelSpecVisuali
 	gcc -c OutputProcessors/Visualizers/FourChannelSpecVisualizer/MultiColorFCSVisOutputter.cpp
 SingleColorFCSVisOutputter.o: OutputProcessors/Visualizers/FourChannelSpecVisualizer/SingleColorFCSVisOutputter.cpp
 	gcc -c OutputProcessors/Visualizers/FourChannelSpecVisualizer/SingleColorFCSVisOutputter.cpp
+OnsetDetectionFunction.o: BTrack/OnsetDetectionFunction.cpp
+	gcc -c BTrack/OnsetDetectionFunction.cpp -DUSE_FFTW
+OnsetDetectionFunction.o: BTrack/OnsetDetectionFunction.cpp
+	gcc -c BTrack/OnsetDetectionFunction.cpp -DUSE_FFTW
+BTrack.o: BTrack/BTrack.cpp
+	gcc -c BTrack.cpp -DUSE_FFTW

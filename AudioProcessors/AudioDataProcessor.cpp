@@ -14,6 +14,7 @@ AudioDataProcessor::AudioDataProcessor(int inputBufferSize, int numBeatDetection
 	this->inputBufferSize = inputBufferSize;
 	this->samplingRate = samplingRate;
 	this->windowedFloatArrayBuffer = new float[inputBufferSize];
+	this->windowedDoubleArrayBuffer = new double[inputBufferSize];
 	this->spectrumBuffer = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * inputBufferSize);
 	this->numBeatDetectionNormalisationSamples = numBeatDetectionNormalisationSamples;
 	this->beatDetectionOdfType = beatDetectionOdfType;
@@ -21,6 +22,7 @@ AudioDataProcessor::AudioDataProcessor(int inputBufferSize, int numBeatDetection
 	this->windowFunction = getWindowFunction();
 	initFft();
 	initOnset();
+	initBTrack();
 	this->bpmAnalyzer = new BpmAnalyzer;
 }
 
@@ -31,6 +33,9 @@ AudioDataProcessor::~AudioDataProcessor() {
 	if (windowedFloatArrayBuffer) {
 		fftwf_free(windowedFloatArrayBuffer);
 	}
+	if (windowedDoubleArrayBuffer) {
+		fftwf_free(windowedDoubleArrayBuffer);
+	}
 	if (odsDataBuffer) {
 		delete[] odsDataBuffer;
 	}
@@ -40,22 +45,25 @@ AudioDataProcessor::~AudioDataProcessor() {
 }
 
 void AudioDataProcessor::processAudioData(AudioProcessingFrameData* audioData) {
-	inputBufferToWindowedFloatArray(windowedFloatArrayBuffer, audioData->rawData);
+	inputBufferToWindowedFloatAndDoubleArray(windowedFloatArrayBuffer, windowedDoubleArrayBuffer, audioData->rawData);
 	fftwf_execute(fftw_plan);
-	bool onset = onsetsds_process(&ods, (float*)spectrumBuffer);
+	//bool onset = onsetsds_process(&ods, (float*)spectrumBuffer);
+	bTrack->processAudioFrame(windowedDoubleArrayBuffer);
 
 	float maxSpectrumFrequency = ((float)audioData->bitRate)/2.0f;
 	audioData->frequencyWidth = 2*maxSpectrumFrequency / ((float)inputBufferSize);
-	audioData->isBeatRaw = onset;
+	audioData->isBeatRaw = bTrack->beatDueInCurrentFrame();
+	audioData->isBeatBpmAnalyzer = audioData->isBeatRaw;
 	audioData->spectrum = spectrumBuffer;
-	if (bpmAnalyzer) {
+	/*if (bpmAnalyzer) {
 		bpmAnalyzer->postProcessAudioData(audioData);
-	}
+	}*/
 }
 
-void AudioDataProcessor::inputBufferToWindowedFloatArray(float* target, short* src) {
+void AudioDataProcessor::inputBufferToWindowedFloatAndDoubleArray(float* fTarget, double* dTarget, short* src) {
 	for (int i = 0; i < inputBufferSize; i++) {
-		target[i] = (float) windowFunction[i] * ((double) src[2*i]) / 65535.0f;
+		dTarget[i] = (double) windowFunction[i] * ((double) src[2*i]) / 65535.0;
+		fTarget[i] = (float) dTarget[i];
 	}
 }
 
@@ -79,5 +87,9 @@ void AudioDataProcessor::initOnset() {
 	/**ODS_ODF_POWER, ODS_ODF_MAGSUM, ODS_ODF_COMPLEX, ODS_ODF_RCOMPLEX, ODS_ODF_PHASE, ODS_ODF_WPHASE, ODS_ODF_MKL **/
 	ods.odftype = beatDetectionOdfType;
 	onsetsds_init(&ods, odsDataBuffer, ODS_FFT_FFTW3_R2C, ods.odftype, inputBufferSize, numBeatDetectionNormalisationSamples, samplingRate);
+}
+
+void AudioDataProcessor::initBTrack() {
+	bTrack = new BTrack(inputBufferSize, inputBufferSize);
 }
 

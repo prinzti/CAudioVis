@@ -11,6 +11,7 @@
 #include "../onsetsds.h"
 #include "../fftw3.h"
 #include "BpmAnalyzer.h"
+#include "../BTrack/BTrack.h"
 
 class AudioDataProcessor {
 public:
@@ -26,16 +27,19 @@ private:
 	float samplingRate;
 	float* windowFunction;
 	float* windowedFloatArrayBuffer;
+	double* windowedDoubleArrayBuffer;
 	float* odsDataBuffer;
 	fftwf_complex* spectrumBuffer;
 	fftwf_plan fftw_plan;
 	OnsetsDS ods;
 	BpmAnalyzer* bpmAnalyzer;
+	BTrack* bTrack;
 
 	float* getWindowFunction();
-	void inputBufferToWindowedFloatArray(float* target, short* src);
+	void inputBufferToWindowedFloatAndDoubleArray(float* fTarget, double* dTarget, short* src);
 	void initFft();
 	void initOnset();
+	void initBTrack();
 };
 
 #endif /* AUDIODATAPROCESSOR_H_ */
