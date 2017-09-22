@@ -33,7 +33,5 @@ SingleColorFCSVisOutputter.o: OutputProcessors/Visualizers/FourChannelSpecVisual
 	gcc -c OutputProcessors/Visualizers/FourChannelSpecVisualizer/SingleColorFCSVisOutputter.cpp
 OnsetDetectionFunction.o: BTrack/OnsetDetectionFunction.cpp
 	gcc -c BTrack/OnsetDetectionFunction.cpp -DUSE_FFTW
-OnsetDetectionFunction.o: BTrack/OnsetDetectionFunction.cpp
-	gcc -c BTrack/OnsetDetectionFunction.cpp -DUSE_FFTW
 BTrack.o: BTrack/BTrack.cpp
-	gcc -c BTrack.cpp -DUSE_FFTW
+	gcc -c BTrack/BTrack.cpp -DUSE_FFTW
