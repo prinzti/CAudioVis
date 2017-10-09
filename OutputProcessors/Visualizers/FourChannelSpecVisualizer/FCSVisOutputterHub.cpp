@@ -10,7 +10,6 @@
 #include <ctime>
 
 FCSVisOutputterHub::FCSVisOutputterHub() {
-	srand(time(NULL));
 }
 
 FCSVisOutputterHub::~FCSVisOutputterHub() {

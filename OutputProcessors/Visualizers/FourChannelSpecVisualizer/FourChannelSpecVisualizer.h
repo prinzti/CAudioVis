@@ -13,13 +13,6 @@
 #include "FCSVisOutputterHub.h"
 #include "time.h"
 
-const int numChannels = 4;
-const int minSpectrumAmplitudeHistoryLength = 10;
-const int maxSpectrumAmplitudeHistoryLength = 10;
-const int channelAverageHistoryLength = 20;
-const float maxTimeBetweenAnimations = 30;
-const int beatsBetweenAnimations = 32;
-
 class FourChannelSpecVisualizer: public AbstractVisualizer {
 public:
 	FourChannelSpecVisualizer(int inputSpectrumSize, int samplingrate, AbstractVisOutputProcessor* visOutputProcessor);
@@ -27,6 +20,13 @@ public:
 	void processInputData(AudioProcessingFrameData inputSpectrum);
 
 protected:
+	static const int numChannels = 4;
+	static const int minSpectrumAmplitudeHistoryLength = 10;
+	static const int maxSpectrumAmplitudeHistoryLength = 10;
+	static const int channelAverageHistoryLength = 20;
+	static const float maxTimeBetweenAnimations = 30;
+	static const int beatsBetweenAnimations = 32;
+
 	int* powerSpectrumBarIndexByBinIndex;
 	int* numBinsByBarIndex;
 	float* powerSpectrum;

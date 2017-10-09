@@ -7,7 +7,12 @@ struct UnitData {
 	bool blue;
 };
 
+struct VisOutputMetaData {
+	double currentBpm;
+};
+
 struct VisOutputData {
+	VisOutputMetaData metaData;
 	UnitData left;
 	UnitData centerLeft;
 	UnitData centerRight;

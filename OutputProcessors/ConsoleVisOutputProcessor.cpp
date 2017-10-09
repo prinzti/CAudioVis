@@ -30,7 +30,7 @@ void ConsoleVisOutputProcessor::processVisOutput(VisOutputData visOutputData) {
 	buffer[charsWritten] = '\n';
 	charsWritten++;
 	charsWritten += unitDataToConsoleOutput(&(buffer[charsWritten]), 14, visOutputData.bottom);
-
+	charsWritten += sprintf(&(buffer[charsWritten]), " current BPM: %2.1f", visOutputData.metaData.currentBpm);
 	fprintf(stdout, buffer);
 
 }

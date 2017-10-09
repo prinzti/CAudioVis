@@ -17,6 +17,7 @@ struct AudioProcessingFrameData{
 	fftwf_complex* spectrum;
 	bool isBeatRaw;
 	bool isBeatBpmAnalyzer;
+	double currentBpm;
 };
 
 

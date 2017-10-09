@@ -8,13 +8,14 @@
 #include "AudioProcessors/AudioDataProcessor.h"
 #include "OutputProcessors/ConsoleVisOutputProcessor.h"
 #include "OutputProcessors/GpioVisOutputProcessor.h"
-#include "OutputProcessors/Visualizers/FourChannelSpecVisualizer/FourChannelSpecVisualizer.h"
+#include "OutputProcessors/Visualizers/VisualizerHub.h"
 
 using namespace std;
 
 void recordAndProcess(char* captureDevice, char* parmN, char* parmS, char* parmDetectionFunction);
 
 int main(int argc, char* argv[]) {
+	srand(time(NULL));
 	recordAndProcess(argv[1], argv[2], argv[3], argv[4]);
 	return 0;
 }
@@ -32,7 +33,7 @@ void recordAndProcess(char* captureDevice, char* parmN, char* parmS, char* parmD
    AudioDataProcessor* audioDataProcessor = new AudioDataProcessor(N, S, detectionFunction, (float)samplingRate);
    AbstractVisOutputProcessor* visOutputProcessor = new ConsoleVisOutputProcessor();
    //AbstractVisOutputProcessor* visOutputProcessor = new GpioVisOutputProcessor();
-   FourChannelSpecVisualizer* fourChannelSpecVisualizer = new FourChannelSpecVisualizer(N, samplingRate, visOutputProcessor);
+   VisualizerHub* visualizerHub = new VisualizerHub(N, samplingRate, visOutputProcessor);
    short* audioRawBuffer = new short[N*2];
    int framesRead = 1;
 
@@ -42,13 +43,13 @@ void recordAndProcess(char* captureDevice, char* parmN, char* parmS, char* parmD
 	   audioFrameData.rawData = audioRawBuffer;
 	   framesRead = audioInputter->readStream(&audioFrameData, N);
 	   audioDataProcessor->processAudioData(&audioFrameData);
-	   fourChannelSpecVisualizer->processInputData(audioFrameData);
+	   visualizerHub->processInputData(audioFrameData);
 
        fflush(stdout);
 
    }
    delete visOutputProcessor;
-   delete fourChannelSpecVisualizer;
+   delete visualizerHub;
    exit(0);
    
 }

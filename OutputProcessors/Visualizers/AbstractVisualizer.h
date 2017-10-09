@@ -16,8 +16,11 @@ public:
 	AbstractVisualizer(int inputSpectrumSize, int samplingRate, AbstractVisOutputProcessor* visOutputProcessor);
 	virtual ~AbstractVisualizer();
 	virtual void processInputData(AudioProcessingFrameData inputData) = 0;
+	float calcVisualizerHubSelectionProbabilityWeight();
 
 protected:
+	VisOutputData prepareVisOutputData(AudioProcessingFrameData inputData);
+
 	int inputSpectrumSize;
 	int samplingRate;
 	AbstractVisOutputProcessor* visOutputProcessor;

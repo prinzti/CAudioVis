@@ -54,8 +54,7 @@ void FourChannelSpecVisualizer::processInputData(
 	float* bars = new float[numChannels];
 	calculatePowerSpectrumFromDftData(inputData);
 	powerSpectrumToBars(&bars);
-	VisOutputData visOutputData;
-	memset(&visOutputData, false, sizeof(VisOutputData));
+	VisOutputData visOutputData = prepareVisOutputData(inputData);
 	visOutputterHub.processAudioData(inputData, bars, &visOutputData);
 	visOutputProcessor->processVisOutput(visOutputData);
 	if (time(NULL) - timeOfLastAnimation > maxTimeBetweenAnimations || beatCounter % beatsBetweenAnimations == 0) {

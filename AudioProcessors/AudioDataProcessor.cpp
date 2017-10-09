@@ -49,6 +49,7 @@ void AudioDataProcessor::processAudioData(AudioProcessingFrameData* audioData) {
 	fftwf_execute(fftw_plan);
 	//bool onset = onsetsds_process(&ods, (float*)spectrumBuffer);
 	bTrack->processAudioFrame(windowedDoubleArrayBuffer);
+	audioData->currentBpm = bTrack->getCurrentTempoEstimate();
 
 	float maxSpectrumFrequency = ((float)audioData->bitRate)/2.0f;
 	audioData->frequencyWidth = 2*maxSpectrumFrequency / ((float)inputBufferSize);
@@ -62,8 +63,8 @@ void AudioDataProcessor::processAudioData(AudioProcessingFrameData* audioData) {
 
 void AudioDataProcessor::inputBufferToWindowedFloatAndDoubleArray(float* fTarget, double* dTarget, short* src) {
 	for (int i = 0; i < inputBufferSize; i++) {
-		dTarget[i] = (double) windowFunction[i] * ((double) src[2*i]) / 65535.0;
-		fTarget[i] = (float) dTarget[i];
+		dTarget[i] = ((double) src[2*i]) / 65535.0;
+		fTarget[i] = (float) windowFunction[i] * dTarget[i];
 	}
 }
 
